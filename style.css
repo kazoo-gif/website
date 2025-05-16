@@ -1,5 +1,5 @@
 /* Reset basic styles */
-* {
+{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -7,15 +7,30 @@
 
 body {
     font-family: 'Courier New', Courier, monospace; /* Retro feel */
-    background-color: #f0e6f7; /* Soft pastel background */
-    color: #3e3e3e;
+    background-color: #e8c7ff; /* Soft pastel background */
+    color: #ffd4e9;
     line-height: 1.6;
+    margin: 10px;
     padding: 20px;
-    background: linear-gradient(45deg, #ff99cc, #ff66cc, #ffff00, #e0e0e0);
-    background-size: 400% 400%;
-    animation: gradientAnimation 10s ease infinite;
+    background-color: lightblue;
+    border-radius: 5px;
 }
 
+/* Basic flexbox container */
+.container {
+  display: flex;            /* Activate flexbox */
+  justify-content: center;  /* Horizontally center items */
+  align-items: up;      /* Vertically center items */
+  height: 100vh;            /* Full viewport height */
+}
+
+/* Flexbox items */
+.item {
+  margin: 10px;
+  padding: 20px;
+  background-color: lightblue;
+  border-radius: 5px;
+}
 /* Header Styling */
 header {
     background-color: #fff3f7;
@@ -35,7 +50,7 @@ nav ul {
     list-style: none;
     display: flex;
     justify-content: center;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 nav ul li {
@@ -45,7 +60,7 @@ nav ul li {
 nav ul li a {
     text-decoration: none;
     font-size: 1.3em;
-    color: #ff66cc;
+    font-color: #c287c4;
     font-family: 'Press Start 2P', cursive;
 }
 
@@ -165,17 +180,4 @@ footer {
 footer p {
     color: #3e3e3e;
     font-size: 1em;
-}
-
-/* Keyframe for gradient animation */
-@keyframes gradientAnimation {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
 }
