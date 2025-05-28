@@ -16,9 +16,11 @@ body {
 /* Container */
 .container {
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
+    margin: 5px auto;
+    padding: 5rem;
     box-sizing: border-box; /* Include padding in width calculations */
+    justify-content: center; /* Center items horizontally */
+    align-items: center;
 }
 .flex-container {
     display: flex;
