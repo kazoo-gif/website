@@ -195,7 +195,171 @@
        
     <!-- Middle content area (blog posts) -->
     <main class="col-span-6 flex flex-col space-y-4" id="postsContainer" role="main" aria-live="polite" aria-label="Blog posts">
-     <!-- Posts will be dynamically rendered here -->
+     
+    <!-- Posts will be dynamically rendered here -->
+     <script>  // Posts data (simulate server data)
+      const posts = [
+        {
+          id: 1,
+          type: 'like',
+          content: 'Purchase on Payhip - $6',
+        },
+        {
+          id: 2,
+          type: 'answer',
+          content: 'Anonymous asked:\nLorem ipsum dolor sit amet consectetur adipiscing elit, urna consequat felis varius diam eleifend mollis dictum, senectus non a massa nullam.',
+        },
+        {
+          id: 3,
+          type: 'photoset',
+          images: [
+            {
+              src: 'https://storage.googleapis.com/a1aa/image/7d077e3e-ea2f-46d9-5ea4-cf3c118a4b83.jpg',
+              alt: 'Photo of cloudy sky with pink and purple hues over a field',
+            },
+            {
+              src: 'https://storage.googleapis.com/a1aa/image/3bebf58c-2c67-4047-a932-3e0aa94dc32a.jpg',
+              alt: 'Photo of a winding road through a field under a pink and purple cloudy sky',
+            },
+            {
+              src: 'https://storage.googleapis.com/a1aa/image/c02ab6de-ff27-4d75-fd83-dd0d64df3aa0.jpg',
+              alt: 'Photo of a sunset with pink and purple clouds over a tree line',
+            },
+            {
+              src: 'https://storage.googleapis.com/a1aa/image/845b9e40-0387-48cc-b5fd-9371a8fe3f41.jpg',
+              alt: 'Photo of a purple and pink cloudy sky over a mountain range',
+            },
+          ],
+        },
+      ];
+
+      // Render posts function
+      function renderPosts(filter = '') {
+        const container = document.getElementById('postsContainer');
+        container.innerHTML = '';
+
+        const filteredPosts = posts.filter(post => {
+          if (!filter) return true;
+          if (post.type === 'photoset') {
+            return post.images.some(img => img.alt.toLowerCase().includes(filter.toLowerCase()));
+          }
+          return post.content.toLowerCase().includes(filter.toLowerCase());
+        });
+
+        if (filteredPosts.length === 0) {
+          const noPosts = document.createElement('p');
+          noPosts.className = 'text-light-gray text-center';
+          noPosts.textContent = 'No posts found.';
+          container.appendChild(noPosts);
+          return;
+        }
+
+        filteredPosts.forEach(post => {
+          let postEl = document.createElement('article');
+          postEl.className = 'bg-gradient-to-br from-[#d9c3f7] to-[#eac9e0] rounded-md border border-white/50 p-3 text-[10px] font-mono text-light-gray select-text mb-4';
+
+          // Header
+          const header = document.createElement('header');
+          header.className = 'flex justify-between items-center mb-2';
+
+          const leftHeader = document.createElement('div');
+          leftHeader.className = 'bg-white/50 rounded-md px-2 py-[2px] flex items-center space-x-1';
+
+          const typeSpan = document.createElement('span');
+          typeSpan.textContent = post.type.charAt(0).toUpperCase() + post.type.slice(1) + ' post';
+          leftHeader.appendChild(typeSpan);
+
+          const iconSpan = document.createElement('span');
+          iconSpan.className = 'text-[8px] text-gray-500';
+          iconSpan.textContent = '💬';
+          leftHeader.appendChild(iconSpan);
+
+          header.appendChild(leftHeader);
+
+          const rightHeader = document.createElement('div');
+          rightHeader.className = 'flex space-x-1 text-gray-400 text-[8px]';
+          rightHeader.innerHTML = '<span>●</span><span>●</span><span>●</span>';
+          header.appendChild(rightHeader);
+
+          postEl.appendChild(header);
+
+          // Content
+          if (post.type === 'photoset') {
+            const grid = document.createElement('div');
+            grid.className = 'grid grid-cols-2 gap-1';
+            post.images.forEach(img => {
+              const image = document.createElement('img');
+              image.src = img.src;
+              image.alt = img.alt;
+              image.className = 'w-full h-24 object-cover rounded';
+              image.height = 100;
+              image.width = 150;
+              grid.appendChild(image);
+            });
+            postEl.appendChild(grid);
+          } else {
+            const textArea = document.createElement('textarea');
+            textArea.className = 'w-full resize-none rounded border border-gray-300 p-1 text-[10px] font-mono text-light-gray bg-white/70';
+            textArea.rows = post.type === 'answer' ? 5 : 2;
+            textArea.readOnly = true;
+            textArea.textContent = post.content;
+            postEl.appendChild(textArea);
+          }
+
+          container.appendChild(postEl);
+        });
+      }
+
+      // Initial render
+      renderPosts();
+
+      // Search functionality
+      const searchInput = document.getElementById('searchInput');
+      const clearSearchBtn = document.getElementById('clearSearchBtn');
+
+      searchInput.addEventListener('input', () => {
+        renderPosts(searchInput.value.trim());
+      });
+
+      clearSearchBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        renderPosts();
+        searchInput.focus();
+      });
+
+      // Post form submission (simulate server-side)
+      const postForm = document.getElementById('postForm');
+      postForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const type = postForm.type.value;
+        const content = postForm.content.value.trim();
+        if (!content) {
+          alert('Please enter post content.');
+          return;
+        }
+        // Simulate server-side post creation by adding to posts array
+        const newPost = {
+          id: posts.length + 1,
+          type,
+        };
+        if (type === 'photoset') {
+          // For photoset, expect URLs separated by new lines (not implemented here, so just placeholder)
+          newPost.images = [
+            {
+              src: 'https://placehold.co/150x100?text=New+Image+1',
+              alt: 'New photoset image 1',
+            },
+            {
+              src: 'https://placehold.co/150x100?text=New+Image+2',
+              alt: 'New photoset image 2',
+            },
+          ];
+        } else {newPost.content = content;}
+        posts.unshift(newPost);
+        renderPosts(searchInput.value.trim());
+        postForm.reset();
+        alert('Post submitted successfully!');});
+         </script>  
     </main>
     <!-- Right sidebar -->
     <aside class="col-span-3 flex flex-col space-y-4">
