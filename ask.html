@@ -3,40 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ask Me | Weirdcore Game Dev Blog</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Permanent+Marker&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>Goober Dev Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   /* Custom scrollbar for overflow containers */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  /* Light grey text for all text except white UI elements */
+  .text-white {
+    color: #ffffff;
+  }  
+  </style>
 </head>
+
 <body>
-    <header>
-        <h1>Ask Me Anything</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="ask.html">Ask Me</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+    <div class="container">
+   <!-- Top bar -->
+   <div class="top-bar">
+    <div>
+     ♡ Goobz Creates.exe
+    </div>
+    <div class="flex space-x-1">
+     <div class="w-3 h-3 rounded-full bg-white/50"></div>
+     <div class="w-3 h-3 rounded-full bg-white/50"></div>
+     <div class="w-3 h-3 rounded-full bg-white/50"></div></div>
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="bg-white/30 rounded-t-md px-2 py-[2px]">Home</a>
+      <a href="posts.html" class="bg-white/20 rounded-t-md px-2 py-[2px]">Posts</a>
+      <a href="projects.html" class="bg-white/20 rounded-t-md px-2 py-[2px]">Projects</a>
+      <a href="ask.html" class="bg-white/20 rounded-t-md px-2 py-[2px]">Ask/Contact</a>
+    </div>
+    <!-- URL bar with search -->
+   <form id="searchForm" class="flex items-center border border-white/50 rounded-md bg-white/30 px-2 py-1 mb-4 text-[10px] font-mono select-text text-white" onsubmit="return false;">
+    <div class="flex space-x-1 mr-2">
+     <button type="button" class="w-5 h-5 rounded-full border border-white/50 text-white/50 flex items-center justify-center" aria-label="Back">
+      ◀
+     </button>
+     <button type="button" class="w-5 h-5 rounded-full border border-white/50 text-white/50 flex items-center justify-center" aria-label="Forward">
+      ▶
+     </button>
+     <button type="button" class="w-5 h-5 rounded-full border border-white/50 text-white/50 flex items-center justify-center" aria-label="Reload">
+      ⟳
+     </button>
+    </div>
+    <div class="flex items-center space-x-1 flex-1 overflow-hidden">
+     <span class="bg-white/50 rounded px-1 text-gray-600 font-semibold">
+      Search
+     </span>
+     <span>
+      :
+     </span>
+     <input aria-label="Search posts" autocomplete="on" class="bg-white/50 rounded px-1 text-gray-600 font-semibold w-full truncate outline-none" id="searchInput" name="search" placeholder="Search posts..." type="search"/>
+    </div>
+    <button aria-label="Clear search" class="ml-2 w-5 h-5 rounded-full border border-white/50 text-white/50 flex items-center justify-center" id="clearSearchBtn" type="button">
+     ✕
+    </button>
+   </form>
+        
+    <!-- Main content area with grid -->
+   <div class="grid grid-cols-12 gap-4">
+    <!-- Left sidebar -->
+    <aside class="sidebar">
+        
+     <!-- Profile circle with cherry blossoms -->
+     <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-white/70 relative">
+      <img alt="Anime girl with pink cherry blossoms background, circular portrait" class="w-full h-full object-cover" height="96" src="https://storage.googleapis.com/a1aa/image/6d8b772e-8f34-4122-075b-7d3bf8f030a0.jpg" width="96"/>
+     </div>
+     <div class="text-center text-[10px] font-mono select-text text-light-gray">
+      <div>
+       Honey It's You!
+      </div>
+      <div class="bg-white/30 rounded-md mt-1 p-1">
+       <div>
+        Preview: 8 / 8
+       </div>
+       <div>
+        You are viewing Marmalade Suite, the 29th theme released
+       </div>
+      </div>
+      <button class="mt-2 w-full bg-white/30 rounded-md py-1 text-[10px] font-mono text-white">
+       online
+      </button>
+     </div>
+        
+     <!-- Calendar -->
+     <div class="bg-white/30 rounded-md p-2 text-[10px] font-mono select-text w-full max-w-[160px] text-white">
+      <div class="text-center mb-1 font-semibold" id="calendarMonthYear">
+       SEPTEMBER 2019
+      </div>
+      <div class="grid grid-cols-7 gap-[1px] text-center">
+       <div class="text-white/50">
+        Su
+       </div>
+       <div class="text-white/50">
+        Mo
+       </div>
+       <div class="text-white/50">
+        Tu
+       </div>
+       <div class="text-white/50">
+        We
+       </div>
+       <div class="text-white/50">
+        Th
+       </div>
+       <div class="text-white/50">
+        Fr
+       </div>
+       <div class="text-white/50">
+        Sa
+       </div>
+      </div>
+      <div class="grid grid-cols-7 gap-[1px] text-center" id="calendarDays">
+       <!-- Days will be generated by JS -->
+       <script>
+       // Clock update
+      function updateClock() {
+        const clockEl = document.getElementById('clock');
+        const now = new Date();
+        const h = now.getHours().toString().padStart(2, '0');
+        const m = now.getMinutes().toString().padStart(2, '0');
+        const s = now.getSeconds().toString().padStart(2, '0');
+        clockEl.textContent = `${h}:${m}:${s}`;
+      }
+      setInterval(updateClock, 1000);
+      updateClock();
 
-    <main>
-        <section id="ask">
-            <h2>Ask Me Anything</h2>
-            <p>Got a question about game development, weird art, or just want to chat about the pixel world? Drop your question below, and I'll reply with all my strange, dream-inspired advice.</p>
-            <form action="#" method="POST">
-                <label for="question">Your Question:</label>
-                <textarea id="question" name="question" rows="4" placeholder="Ask me anything..."></textarea>
-                <button type="submit">Send Question</button>
-            </form>
-            <img src="https://media.giphy.com/media/l1J9zJrwMdmzowh8A/giphy.gif" alt="Sparkles gif" class="cute-gif">
-        </section>
-    </main>
+      // Calendar generation
+      function generateCalendar(year, month) {
+        const calendarDays = document.getElementById('calendarDays');
+        const calendarMonthYear = document.getElementById('calendarMonthYear');
+        calendarDays.innerHTML = '';
 
-    <footer>
-        <p>&copy; 2025 Weirdcore Game Dev Blog</p>
-    </footer>
+        const monthNames = [
+          'January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+        calendarMonthYear.textContent = `${monthNames[month]} ${year}`;
+
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+        const startDay = firstDay.getDay(); // Sunday=0
+        const daysInMonth = lastDay.getDate();
+
+        // Fill empty slots before first day
+        for (let i = 0; i < startDay; i++) {
+          const emptyCell = document.createElement('div');
+          emptyCell.className = 'text-white/30';
+          emptyCell.textContent = '';
+          calendarDays.appendChild(emptyCell);
+        }
+
+    // Fill days
+        for (let day = 1; day <= daysInMonth; day++) {
+          const dayCell = document.createElement('div');
+          dayCell.className = 'cursor-pointer hover:bg-white/20 rounded select-text';
+          dayCell.textContent = day;
+          dayCell.setAttribute('tabindex', '0');
+          dayCell.setAttribute('role', 'button');
+          dayCell.setAttribute('aria-label', `Select day ${day} of ${monthNames[month]} ${year}`);
+          dayCell.addEventListener('click', () => {
+            alert(`You selected ${monthNames[month]} ${day}, ${year}`);
+          });
+          dayCell.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              dayCell.click();
+        }
+          });
+          calendarDays.appendChild(dayCell);
+        }
+      }
+
+      // Initialize calendar to current month/year
+      const today = new Date();
+      generateCalendar(today.getFullYear(), today.getMonth());
+            
+      </script>  
+      </div>
+     </div>
+    </aside>
+
+
+       
+    <!-- Middle content area (blog posts) -->
+    <main class="main-content"></main>
 </body>
 </html>
