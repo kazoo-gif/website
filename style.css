@@ -1,6 +1,85 @@
+/* Body Styles */
+body {
+    background: linear-gradient(to right, #c6b9f0, #d9c3f7, #eac9e0);
+    min-height: 100vh;
+    font-family: sans-serif;
+    user-select: none;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* Top Bar */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    font-family: 'Courier New', monospace;
+    margin-bottom: 0.5rem;
+    color: white;
+}
+
+.top-bar .controls {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.top-bar .controls div {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Navigation Links */
+.nav-links {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+    font-size: 10px;
+    font-family: 'Courier New', monospace;
+    color: white;
+}
+
+.nav-links a {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 0.25rem 0.25rem 0 0;
+    padding: 0.125rem 0.5rem;
+}
+
+/* Search Form */
+#searchForm {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 0.375rem;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 0.25rem 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 10px;
+    font-family: 'Courier New', monospace;
+    color: white;
+}
+
+#searchForm input {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+    color: #4a4a4a;
+}
+
+/* Main Content Area */
+.grid {
+    display: grid;
     grid-template-columns: repeat(12, 1fr);
     gap: 1rem;
 }
+
 /* Sidebar */
 .sidebar {
     grid-column: span 3;
@@ -8,6 +87,7 @@
     flex-direction: column;
     gap: 1rem;
 }
+
 /* Main Content */
 .main-content {
     grid-column: span 6;
@@ -15,6 +95,7 @@
     flex-direction: column;
     gap: 1rem;
 }
+
 /* Bottom Bar */
 .bottom-bar {
     margin-top: 1rem;
@@ -28,6 +109,4 @@
     font-family: 'Courier New', monospace;
     color: lightgray;
 }
-    color: #3e3e3e;
-    font-size: 1em;
-}
+
