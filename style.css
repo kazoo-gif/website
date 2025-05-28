@@ -1,3 +1,10 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 /* Body Styles */
 body {
     background: linear-gradient(to right, #c6b9f0, #d9c3f7, #eac9e0);
@@ -11,6 +18,12 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 1rem;
+    box-sizing: border-box; /* Include padding in width calculations */
+}
+.flex-container {
+    display: flex;
+    justify-content: center; /* Center items horizontally */
+    align-items: center; /* Center items vertically */
 }
 
 /* Top Bar */
@@ -78,6 +91,7 @@ body {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     gap: 1rem;
+    padding: 0 1rem; /* Add padding to the grid */
 }
 
 /* Sidebar */
