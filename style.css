@@ -16,14 +16,16 @@ body {
 /* Container */
 .container {
     max-width: 1200px;
-    margin: 5px auto;
-    padding: 5rem;
+    margin: 20px auto;
+    padding: 50rem;
     box-sizing: border-box; /* Include padding in width calculations */
     justify-content: center; /* Center items horizontally */
     align-items: center;
 }
 .flex-container {
     display: flex;
+    flex-direction: column; 
+    flex-wrap: nowrap;
     justify-content: center; /* Center items horizontally */
     align-items: center; /* Center items vertically */
 }
@@ -41,7 +43,8 @@ body {
 
 .top-bar .controls {
     display: flex;
-    gap: 0.25rem;
+    padding: 10px;
+    gap: 1rem;
 }
 
 .top-bar .controls div {
