@@ -109,7 +109,7 @@ body {
 
 /* Main Content */
 .main-content {
-    grid-column: span 36;
+    grid-column: span 180;
     display: flex;
     flex-direction: column;
     gap: 5rem;
