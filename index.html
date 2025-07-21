@@ -88,39 +88,17 @@
       </button>
      </div>
         
-    <!-- Calendar -->
-<div class="bg-white/30 rounded-md p-2 text-[10px] font-mono select-text w-full max-w-[160px] text-white">
+<div class="bg-gray-800 rounded-md p-2 text-[10px] font-mono select-text w-full max-w-[160px] text-white">
   <div class="text-center mb-1 font-semibold" id="calendarMonthYear">MAY 2023</div>
   
-  <div class="grid grid-cols-7 gap-[1px] text-center">
-    <div class="text-white/50">Su</div>
-    <div class="text-white/50">Mo</div>
-    <div class="text-white/50">Tu</div>
-    <div class="text-white/50">We</div>
-    <div class="text-white/50">Th</div>
-    <div class="text-white/50">Fr</div>
-    <div class="text-white/50">Sa</div>
+  <div class="grid grid-cols-7 gap-[1px] text-center text-gray-400">
+    <div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div>
   </div>
 
-  <div class="grid grid-cols-7 gap-[1px] text-center" id="calendarDays">
-    <!-- JS will populate this -->
-  </div>
+  <div class="grid grid-cols-7 gap-[1px] text-center" id="calendarDays"></div>
 </div>
-<script>
-  // Clock update
-  function updateClock() {
-    const clockEl = document.getElementById('clock');
-    if (!clockEl) return;
-    const now = new Date();
-    const h = now.getHours().toString().padStart(2, '0');
-    const m = now.getMinutes().toString().padStart(2, '0');
-    const s = now.getSeconds().toString().padStart(2, '0');
-    clockEl.textContent = `${h}:${m}:${s}`;
-  }
-  setInterval(updateClock, 1000);
-  updateClock();
 
-  // Calendar generation
+<script>
   function generateCalendar(year, month) {
     const calendarDays = document.getElementById('calendarDays');
     const calendarMonthYear = document.getElementById('calendarMonthYear');
@@ -141,7 +119,7 @@
 
     for (let i = 0; i < startDay; i++) {
       const emptyCell = document.createElement('div');
-      emptyCell.className = 'text-white/30';
+      emptyCell.className = 'text-gray-600';
       emptyCell.textContent = '';
       calendarDays.appendChild(emptyCell);
     }
@@ -171,205 +149,57 @@
 </script>
 
 
+
        
     <!-- Middle content area (blog posts) -->
     <main class="main-content">
      
     <!-- Posts will be dynamically rendered here -->
     <!-- Post Form -->
-    <form id="postForm" class="mb-4">
-      <label for="type">Post Type:</label>
-      <select id="type" name="type" class="ml-2">
-        <option value="like">Like</option>
-        <option value="answer">Answer</option>
-        <option value="photoset">Photoset</option>
-      </select><br><br>
-    
-      <label for="content">Post Content:</label><br>
-      <textarea id="content" name="content" rows="3" class="w-full p-1 rounded border"></textarea><br><br>
-    
-      <button type="submit" class="bg-purple-500 text-white px-3 py-1 rounded">Submit Post</button>
-    </form>
-    
-    <!-- Search -->
-    <input id="searchInput" type="text" placeholder="Search posts..." class="border px-2 py-1 text-sm w-full max-w-xs">
-    <button id="clearSearchBtn" class="ml-2 text-xs text-gray-600">Clear</button>
-    
-    <!-- Posts container -->
-    <section id="postsContainer" class="mt-4"></section>
-        
-     <script>  // Posts data (simulate server data)
-      const posts = [
-        {
-          id: 1,
-          type: 'like',
-          content: 'Purchase on Payhip - $6',
-        },
-        {
-          id: 2,
-          type: 'answer',
-          content: 'Anonymous asked:\nLorem ipsum dolor sit amet consectetur adipiscing elit, urna consequat felis varius diam eleifend mollis dictum, senectus non a massa nullam.',
-        },
-        {
-          id: 3,
-          type: 'photoset',
-          images: [
-            {
-              src: 'https://storage.googleapis.com/a1aa/image/7d077e3e-ea2f-46d9-5ea4-cf3c118a4b83.jpg',
-              alt: 'Photo of cloudy sky with pink and purple hues over a field',
-            },
-            {
-              src: 'https://storage.googleapis.com/a1aa/image/3bebf58c-2c67-4047-a932-3e0aa94dc32a.jpg',
-              alt: 'Photo of a winding road through a field under a pink and purple cloudy sky',
-            },
-            {
-              src: 'https://storage.googleapis.com/a1aa/image/c02ab6de-ff27-4d75-fd83-dd0d64df3aa0.jpg',
-              alt: 'Photo of a sunset with pink and purple clouds over a tree line',
-            },
-            {
-              src: 'https://storage.googleapis.com/a1aa/image/845b9e40-0387-48cc-b5fd-9371a8fe3f41.jpg',
-              alt: 'Photo of a purple and pink cloudy sky over a mountain range',
-            },
-          ],
-        },
-      ];
+    <script>
+        postForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const type = postForm.type.value;
+      const content = postForm.content.value.trim();
 
-      // Render posts function
-      function renderPosts(filter = '') {
-        const container = document.getElementById('postsContainer');
-        container.innerHTML = '';
-        const savedPosts = JSON.parse(localStorage.getItem('goobzPosts'));
-        if (savedPosts) {
-              posts.splice(0, posts.length, ...savedPosts); // overwrite in-place to keep reference
-        }
-
-
-        const filteredPosts = posts.filter(post => {
-          if (!filter) return true;
-          if (post.type === 'photoset') {
-            return post.images.some(img => img.alt.toLowerCase().includes(filter.toLowerCase()));
-          }
-          return post.content.toLowerCase().includes(filter.toLowerCase());
-        });
-
-        if (filteredPosts.length === 0) {
-          const noPosts = document.createElement('p');
-          noPosts.className = 'text-light-gray text-center';
-          noPosts.textContent = 'No posts found.';
-          container.appendChild(noPosts);
-          return;
-        }
-
-        filteredPosts.forEach(post => {
-          let postEl = document.createElement('article');
-          postEl.className = 'bg-gradient-to-br from-[#d9c3f7] to-[#eac9e0] rounded-md border border-white/50 p-3 text-[10px] font-mono text-light-gray select-text mb-4';
-
-          // Header
-          const header = document.createElement('header');
-          header.className = 'flex justify-between items-center mb-2';
-
-          const leftHeader = document.createElement('div');
-          leftHeader.className = 'bg-white/50 rounded-md px-2 py-[2px] flex items-center space-x-1';
-
-          const typeSpan = document.createElement('span');
-          typeSpan.textContent = post.type.charAt(0).toUpperCase() + post.type.slice(1) + ' post';
-          leftHeader.appendChild(typeSpan);
-
-          const iconSpan = document.createElement('span');
-          iconSpan.className = 'text-[8px] text-gray-500';
-          iconSpan.textContent = '💬';
-          leftHeader.appendChild(iconSpan);
-
-          header.appendChild(leftHeader);
-
-          const rightHeader = document.createElement('div');
-          rightHeader.className = 'flex space-x-1 text-gray-400 text-[8px]';
-          rightHeader.innerHTML = '<span>●</span><span>●</span><span>●</span>';
-          header.appendChild(rightHeader);
-
-          postEl.appendChild(header);
-
-          // Content
-          if (post.type === 'photoset') {
-            const grid = document.createElement('div');
-            grid.className = 'grid grid-cols-2 gap-1';
-            post.images.forEach(img => {
-              const image = document.createElement('img');
-              image.src = img.src;
-              image.alt = img.alt;
-              image.className = 'w-full h-24 object-cover rounded';
-              image.height = 100;
-              image.width = 150;
-              grid.appendChild(image);
-            });
-            postEl.appendChild(grid);
-          } else {
-            const textArea = document.createElement('textarea');
-            textArea.className = 'w-full resize-none rounded border border-gray-300 p-1 text-[10px] font-mono text-light-gray bg-white/70';
-            textArea.rows = post.type === 'answer' ? 5 : 2;
-            textArea.readOnly = true;
-            textArea.textContent = post.content;
-            postEl.appendChild(textArea);
-          }
-
-          container.appendChild(postEl);
-        });
+      if (!content) {
+            alert('Please enter post content.');
+            return;
       }
 
-      // Initial render
-      renderPosts();
+      // Add the new post first
+      const newPost = {
+        id: posts.length + 1,
+        type,
+      };
 
-      // Search functionality
-      const searchInput = document.getElementById('searchInput');
-      const clearSearchBtn = document.getElementById('clearSearchBtn');
+  if (type === 'photoset') {
+    newPost.images = [
+      {
+        src: 'https://placehold.co/150x100?text=New+Image+1',
+        alt: 'New photoset image 1',
+      },
+      {
+        src: 'https://placehold.co/150x100?text=New+Image+2',
+        alt: 'New photoset image 2',
+      },
+    ];
+  } else {
+    newPost.content = content;
+  }
 
-      searchInput.addEventListener('input', () => {
-        renderPosts(searchInput.value.trim());
-      });
+  posts.unshift(newPost);
 
-      clearSearchBtn.addEventListener('click', () => {
-        searchInput.value = '';
-        renderPosts();
-        searchInput.focus();
-      });
+  // Now save after updating the posts array
+  localStorage.setItem('goobzPosts', JSON.stringify(posts));
 
-      // Post form submission (simulate server-side)
-      const postForm = document.getElementById('postForm');
-      postForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const type = postForm.type.value;
-        const content = postForm.content.value.trim();
-        localStorage.setItem('goobzPosts', JSON.stringify(posts));
+  renderPosts(searchInput.value.trim());
+  postForm.reset();
+  alert('Post submitted successfully!');
+    </script>
+    
+});
 
-        if (!content) {
-          alert('Please enter post content.');
-          return;
-        }
-        // Simulate server-side post creation by adding to posts array
-        const newPost = {
-          id: posts.length + 1,
-          type,
-        };
-        if (type === 'photoset') {
-          // For photoset, expect URLs separated by new lines (not implemented here, so just placeholder)
-          newPost.images = [
-            {
-              src: 'https://placehold.co/150x100?text=New+Image+1',
-              alt: 'New photoset image 1',
-            },
-            {
-              src: 'https://placehold.co/150x100?text=New+Image+2',
-              alt: 'New photoset image 2',
-            },
-          ];
-        } else {newPost.content = content;}
-        posts.unshift(newPost);
-        renderPosts(searchInput.value.trim());
-        postForm.reset();
-        alert('Post submitted successfully!');});
-         </script>  
-
-        
     </main>
     <!-- Right sidebar -->
     <aside class="col-span-3 flex flex-col space-y-4">
