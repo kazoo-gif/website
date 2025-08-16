@@ -17,7 +17,7 @@ body {
 .container {
     max-width: 1200px;
     margin: 20px auto;
-    padding: 50rem;
+    padding: 20px;
     box-sizing: border-box; /* Include padding in width calculations */
     justify-content: center; /* Center items horizontally */
     align-items: center;
