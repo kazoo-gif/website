@@ -1,303 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Goober Dev Website</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <style>
-   /* Custom scrollbar for overflow containers */
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  /* Light grey text for all text except white UI elements */
-  .text-white {
-    color: #ffffff;
-  }  
-  </style>
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Goober Dev Website</title>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+		<style>
+			/* Custom scrollbar for overflow containers */
+			.scrollbar-hide::-webkit-scrollbar {
+				display: none;
+			}
 
-<body class="bg-gradient-to-r from-[#c6b9f0] via-[#d9c3f7] to-[#eac9e0] min-h-screen font-sans select-none">
-    <div class="container">
-   <!-- Top bar -->
-   <div class="top-bar">
-    <div>
-     ♡ Goobz Creates.exe
-    </div>
-    <div class="nav-links">
-      <a href="index.html" class="bg-white/30 rounded-t-md px-2 py-[2px] text-white/50">Home</a>
-      <a href="posts.html" class="bg-white/30 rounded-t-md px-2 py-[2px] text-white/50">Posts</a>
-      <a href="projects.html" class="bg-white/30 rounded-t-md px-2 py-[2px] text-white/50">Projects</a>
-      <a href="ask.html" class="bg-white/30 rounded-t-md px-2 py-[2px] text-white/50">Ask/Contact</a>
-    </div>
-    <!-- URL bar with search -->
-   <form id="searchForm" class="flex items-center border border-white/50 rounded-md bg-white/30 px-2 py-1 mb-4 text-[10px] font-mono select-text text-white" onsubmit="return false;">
-    <div class="flex space-x-1 mr-2">
-     <button type="button" class="w-5 h-5 rounded-full border border-white/50 text-white/50 flex items-center justify-center" aria-label="Back">
-      ◀
-     </button>
-     <button type="button" class="w-5 h-5 rounded-full border border-white/50 text-white/50 flex items-center justify-center" aria-label="Forward">
-      ▶
-     </button>
-     <button type="button" class="w-5 h-5 rounded-full border border-white/50 text-white/50 flex items-center justify-center" aria-label="Reload">
-      ⟳
-     </button>
-    </div>
-    <div class="flex items-center space-x-1 flex-1 overflow-hidden">
-     <span class="bg-white/50 rounded px-1 text-gray-600 font-semibold">
-      Search
-     </span>
-     <span>
-      :
-     </span>
-     <input aria-label="Search posts" autocomplete="on" class="bg-white/50 rounded px-1 text-gray-600 font-semibold w-full truncate outline-none" id="searchInput" name="search" placeholder="Search posts..." type="search"/>
-    </div>
-    <button aria-label="Clear search" class="ml-2 w-5 h-5 rounded-full border border-white/50 text-white/50 flex items-center justify-center" id="clearSearchBtn" type="button">
-     ✕
-    </button>
-   </form>
-        
-    <!-- Main content area with grid -->
-   <div class="grid grid-cols-12 gap-4">
-    <!-- Left sidebar -->
-    <aside class="col-span-1 sidebar">
-        
-     <!-- Profile circle with cherry blossoms -->
-     <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-white/70 relative">
-      <img alt="Anime girl with pink cherry blossoms background, circular portrait" class="w-full h-full object-cover" height="96" src="https://storage.googleapis.com/a1aa/image/6d8b772e-8f34-4122-075b-7d3bf8f030a0.jpg" width="96"/>
-     </div>
-     <div class="text-center text-[10px] font-mono select-text text-light-gray">
-      <div>
-       #1 Software Geek
-      </div>
-      <div class="bg-white/30 rounded-md mt-1 p-1">
-       <div>
-        all around goofy
-       </div>
-       <div>
-        You are viewing Goobz Homepage
-       </div>
-      </div>
-      <button class="mt-2 w-full bg-white/30 rounded-md py-1 text-[10px] font-mono text-white">
-       online
-      </button>
-     </div>
- <!-- Calendar stylesheet -->       
-<div class="bg-pink-600 rounded-md p-2 text-[10px] font-mono select-text w-full max-w-[160px] text-pink-100">
-  <div class="text-center mb-1 font-semibold" id="calendarMonthYear">MAY 2023</div>
-  
-  <div class="grid grid-cols-7 gap-[1px] text-center text-pink-300">
-    <div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div>
-  </div>
+			.scrollbar-hide {
+				-ms-overflow-style: none;
+				scrollbar-width: none;
+			}
 
-  <div class="grid grid-cols-7 gap-[1px] text-center" id="calendarDays"></div>
-</div>
-
-
-<script>
-  function generateCalendar(year, month) {
-    const calendarDays = document.getElementById('calendarDays');
-    const calendarMonthYear = document.getElementById('calendarMonthYear');
-    if (!calendarDays || !calendarMonthYear) return;
-
-    calendarDays.innerHTML = '';
-
-    const monthNames = [
-      'January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'
-    ];
-    calendarMonthYear.textContent = `${monthNames[month]} ${year}`;
-
-    const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0);
-    const startDay = firstDay.getDay();
-    const daysInMonth = lastDay.getDate();
-
-    for (let i = 0; i < startDay; i++) {
-      const emptyCell = document.createElement('div');
-      emptyCell.className = 'text-gray-600';
-      emptyCell.textContent = '';
-      calendarDays.appendChild(emptyCell);
-    }
-
-    for (let day = 1; day <= daysInMonth; day++) {
-      const dayCell = document.createElement('div');
-      dayCell.className = 'cursor-pointer hover:bg-white/20 rounded select-text';
-      dayCell.textContent = day;
-      dayCell.setAttribute('tabindex', '0');
-      dayCell.setAttribute('role', 'button');
-      dayCell.setAttribute('aria-label', `Select day ${day} of ${monthNames[month]} ${year}`);
-      dayCell.addEventListener('click', () => {
-        alert(`You selected ${monthNames[month]} ${day}, ${year}`);
-      });
-      dayCell.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          dayCell.click();
-        }
-      });
-      calendarDays.appendChild(dayCell);
-    }
-  }
-
-  const today = new Date();
-  generateCalendar(today.getFullYear(), today.getMonth());
-</script>
-
-
-
-       
-    <!-- Middle content area (blog posts) -->
-    <main class="col-span-6 main-content">
-     
-    <!-- Posts will be dynamically rendered here -->
-    <!-- Post Form -->
-    <script>
-        postForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const type = postForm.type.value;
-      const content = postForm.content.value.trim();
-
-      if (!content) {
-            alert('Please enter post content.');
-            return;
-      }
-
-      // Add the new post first
-      const newPost = {
-        id: posts.length + 1,
-        type,
-      };
-
-  if (type === 'photoset') {
-    newPost.images = [
-      {
-        src: 'https://placehold.co/150x100?text=New+Image+1',
-        alt: 'New photoset image 1',
-      },
-      {
-        src: 'https://placehold.co/150x100?text=New+Image+2',
-        alt: 'New photoset image 2',
-      },
-    ];
-  } else {
-    newPost.content = content;
-  }
-
-  posts.unshift(newPost);
-
-  // Now save after updating the posts array
-  localStorage.setItem('goobzPosts', JSON.stringify(posts));
-
-  renderPosts(searchInput.value.trim());
-  postForm.reset();
-  alert('Post submitted successfully!');
-    </script>
-    </aside>
-
-    </main>
-    <!-- Right sidebar -->
-    <aside class="col-span-3 flex flex-col space-y-4">
-     <!-- Player box -->
-     <section class="bg-white/30 rounded-md border border-white/50 p-3 text-[10px] font-mono text-light-gray select-text relative">
-      <div class="sidebar">
-       <img alt="Album cover art with vintage style illustration" class="w-10 h-10 rounded" height="40" src="https://storage.googleapis.com/a1aa/image/99612cfc-b813-4ab3-2017-a245cf5b5773.jpg" width="40"/>
-       <div>
-        <div class="font-semibold text-[11px] text-light-gray">
-         A Puzzle
-        </div>
-        <div class="text-[9px] text-gray-400">
-         ♡ 49k ♡
-        </div>
-       </div>
-      </div>
-      <div class="flex justify-center items-center space-x-4">
-       <button aria-label="Previous track" class="w-8 h-8 rounded-full border border-white/50 bg-white/70 text-gray-600 flex items-center justify-center" type="button">
-        <i class="fas fa-backward">
-        </i>
-       </button>
-       <button aria-label="Play" class="w-10 h-10 rounded-full border border-white/50 bg-white text-gray-600 flex items-center justify-center" type="button">
-        <i class="fas fa-play">
-        </i>
-       </button>
-       <button aria-label="Next track" class="w-8 h-8 rounded-full border border-white/50 bg-white/70 text-gray-600 flex items-center justify-center" type="button">
-        <i class="fas fa-forward">
-        </i>
-       </button>
-      </div>
-     </section>
-     <!-- Pink silhouette image box -->
-     <section class="bg-white/30 rounded-md border border-white/50 p-2 flex justify-center items-center">
-      <img alt="Pink silhouette of a person holding a cat on a light pink background" class="object-contain max-w-full max-h-32" height="120" src="https://storage.googleapis.com/a1aa/image/5188d64b-554e-4a09-d162-e82f10c91768.jpg" width="200"/>
-     </section>
-     <!-- Post generator form -->
-     <section class="bg-white/30 rounded-md border border-white/50 p-3 text-[10px] font-mono text-light-gray select-text">
-      <h2 class="mb-2 font-semibold text-center">Create New Post</h2>
-      <form action="/api/posts" method="POST" id="postForm" class="flex flex-col space-y-2" novalidate>
-       <label for="postType" class="sr-only">Post Type</label>
-       <select class="rounded border border-gray-400 bg-white/70 px-2 py-1 text-gray-700" id="postType" name="type" required>
-        <option value="like">Like Post</option>
-        <option value="answer">Answer Post</option>
-        <option value="photoset">Photoset Post</option>
-       </select>
-       <label for="postContent" class="sr-only">Post Content</label>
-       <textarea class="resize-none rounded border border-gray-400 p-2 text-gray-700" id="postContent" name="content" placeholder="Write your post content here..." rows="4" required></textarea>
-       <button class="bg-gradient-to-br from-[#d9c3f7] to-[#eac9e0] rounded-md border border-white/50 py-1 font-semibold text-gray-700 hover:text-gray-900" type="submit">
-        Submit Post
-       </button>
-      </form>
-     </section>
-    </aside>
-   </div>
-
-
-        
-   <!-- Bottom bar -->
-   <div class="mt-4 flex items-center justify-between border border-white/50 rounded-md bg-white/30 px-3 py-1 text-[10px] font-mono select-text text-light-gray">
-    <div class="flex space-x-2">
-     <button class="px-2 py-[2px] rounded bg-white/30" type="button">
-      POST DATE
-     </button>
-     <button class="px-2 py-[2px] rounded bg-white/30" type="button">
-      MARKETING
-     </button>
-     <button class="px-2 py-[2px] rounded bg-white/30" type="button">
-      GAMES
-     </button>
-     <button class="px-2 py-[2px] rounded bg-white/30" type="button">
-      PHOTOSHOP
-     </button>
-     <button class="px-2 py-[2px] rounded bg-white/30" type="button">
-      CSS
-     </button>
-     <button class="px-2 py-[2px] rounded bg-white/30" type="button">
-      HTML
-     </button>
-     <button class="px-2 py-[2px] rounded bg-white/30" type="button">
-      EXAMPLES
-     </button>
-    </div>
-    <div class="flex items-center space-x-2">
-     <button aria-label="Previous page" class="w-6 h-6 rounded border border-white/50 text-white/50 flex items-center justify-center" type="button">
-      ◀
-     </button>
-     <button aria-label="Next page" class="w-6 h-6 rounded border border-white/50 text-white/50 flex items-center justify-center" type="button">
-      ▶
-     </button>
-     <button aria-label="Stop" class="w-6 h-6 rounded border border-white/50 text-white/50 flex items-center justify-center" type="button">
-      ●
-     </button>
-    </div>
-    <div aria-live="polite" aria-atomic="true" class="text-light-gray text-[10px] font-mono select-text" id="clock">
-     00:00:00
-    </div>
-   </div>
-  </div>
-</body>
+			/* Light grey text for all text except white UI elements */
+			.text-white {
+				color: #ffffff;
+			}
+		</style>
+	</head>
+	<body class="bg-gradient-to-r from-[#c6b9f0] via-[#d9c3f7] to-[#eac9e0] min-h-screen font-sans select-none">
+		<div class="container">
+			<!-- Top bar -->
+			<div class="top-bar">
+				<div> ♡ Goobz Creates.exe </div>
+				<div class="nav-links">
+					<a href="index.html" class="bg-white/30 rounded-t-md px-2 py-[2px] text-white/50">Home</a>
+					<a href="posts.html" class="bg-white/30 rounded-t-md px-2 py-[2px] text-white/50">Posts</a>
+					<a href="projects.html" class="bg-white/30 rounded-t-md px-2 py-[2px] text-white/50">Projects</a>
+					<a href="ask.html" class="bg-white/30 rounded-t-md px-2 py-[2px] text-white/50">Ask/Contact</a>
+				</div>
+				<!-- URL bar with search -->
+				<form id="searchForm" class="flex items-center border border-white/50 rounded-md bg-white/30 px-2 py-1 mb-4 text-[10px] font-mono select-text text-white" onsubmit="return false;">
+					<div class="flex space-x-1 mr-2">
+						<button type="button" class="w-5 h-5 rounded-full border border-white/50 text-white/50 flex items-center justify-center" aria-label="Back"> ◀ </button>
+						<button type="button" class="w-5 h-5 rounded-full border border-white/50 text-white/50 flex items-center justify-center" aria-label="Forward"> ▶ </button>
+						<button type="button" class="w-5 h-5 rounded-full border border-white/50 text-white/50 flex items-center justify-center" aria-label="Reload"> ⟳ </button>
+					</div>
+					<div class="flex items-center space-x-1 flex-1 overflow-hidden">
+						<span class="bg-white/50 rounded px-1 text-gray-600 font-semibold"> Search </span>
+						<span> : </span>
+						<input aria-label="Search posts" autocomplete="on" class="bg-white/50 rounded px-1 text-gray-600 font-semibold w-full truncate outline-none" id="searchInput" name="search" placeholder="Search posts..." type="search" />
+					</div>
+					<button aria-label="Clear search" class="ml-2 w-5 h-5 rounded-full border border-white/50 text-white/50 flex items-center justify-center" id="clearSearchBtn" type="button"> ✕ </button>
+				</form>
+				<!-- Main content area with grid -->
+				<div class="grid grid-cols-12 gap-4">
+					<!-- Left sidebar -->
+					<aside class="col-span-1 sidebar">
+						<!-- Profile circle with cherry blossoms -->
+						<div class="w-24 h-24 rounded-full overflow-hidden border-2 border-white/70 relative">
+							<img alt="Anime girl with pink cherry blossoms background, circular portrait" class="w-full h-full object-cover" height="96" src="https://storage.googleapis.com/a1aa/image/6d8b772e-8f34-4122-075b-7d3bf8f030a0.jpg" width="96" />
+						</div>
+						<div class="text-center text-[10px] font-mono select-text text-light-gray">
+							<div> #1 Software Geek </div>
+							<div class="bg-white/30 rounded-md mt-1 p-1">
+								<div> all around goofy </div>
+								<div> You are viewing Goobz Homepage </div>
+							</div>
+							<button class="mt-2 w-full bg-white/30 rounded-md py-1 text-[10px] font-mono text-white"> online </button>
+						</div>
+						<!-- Calendar stylesheet -->
+						<div class="bg-pink-200 rounded-md p-2 text-[10px] font-mono select-text w-full max-w-[160px]">
+							<div class="text-center mb-1 font-semibold text-pink-700" id="calendarMonthYear">MAY 2023</div>
+							<!-- Dark headers -->
+							<div class="grid grid-cols-7 gap-[1px] text-center text-pink-500 font-semibold">
+								<div>Su</div>
+								<div>Mo</div>
+								<div>Tu</div>
+								<div>We</div>
+								<div>Th</div>
+								<div>Fr</div>
+								<div>Sa</div>
+							</div>
+							<!-- White day numbers -->
+							<div class="grid grid-cols-7 gap-[1px] text-center text-white font-medium" id="calendarDays"></div>
+						</div>
+						<script>
+							function generateCalendar(year, month) {
+								const calendarDays = document.getElementById('calendarDays');
+								const calendarMonthYear = document.getElementById('calendarMonthYear');
+								if (!calendarDays || !calendarMonthYear) return;
+								calendarDays.innerHTML = '';
+								const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+								calendarMonthYear.textContent = `${monthNames[month]} ${year}`;
+								const firstDay = new Date(year, month, 1);
+								const lastDay = new Date(year, month + 1, 0);
+								const startDay = firstDay.getDay();
+								const daysInMonth = lastDay.getDate();
+								for (let i = 0; i < startDay; i++) {
+									const emptyCell = document.createElement('div');
+									emptyCell.className = 'text-gray-600';
+									emptyCell.textContent = '';
+									calendarDays.appendChild(emptyCell);
+								}
+								for (let day = 1; day <= daysInMonth; day++) {
+									const dayCell = document.createElement('div');
+									dayCell.className = 'cursor-pointer hover:bg-white/20 rounded select-text';
+									dayCell.textContent = day;
+									dayCell.setAttribute('tabindex', '0');
+									dayCell.setAttribute('role', 'button');
+									dayCell.setAttribute('aria-label', `Select day ${day} of ${monthNames[month]} ${year}`);
+									dayCell.addEventListener('click', () => {
+										alert(`You selected ${monthNames[month]} ${day}, ${year}`);
+									});
+									dayCell.addEventListener('keydown', (e) => {
+										if (e.key === 'Enter' || e.key === ' ') {
+											e.preventDefault();
+											dayCell.click();
+										}
+									});
+									calendarDays.appendChild(dayCell);
+								}
+							}
+							const today = new Date();
+							generateCalendar(today.getFullYear(), today.getMonth());
+						</script>
+						<!-- Middle content area (blog posts) -->
+						<main class="col-span-6 main-content">
+							<!-- Posts will be dynamically rendered here -->
+							<!-- Post Form -->
+							<script>
+								postForm.addEventListener('submit', (e) => {
+											e.preventDefault();
+											const type = postForm.type.value;
+											const content = postForm.content.value.trim();
+											if (!content) {
+												alert('Please enter post content.');
+												return;
+											}
+											// Add the new post first
+											const newPost = {
+												id: posts.length + 1,
+												type,
+											};
+											if (type === 'photoset') {
+												newPost.images = [{
+													src: 'https://placehold.co/150x100?text=New+Image+1',
+													alt: 'New photoset image 1',
+												}, {
+													src: 'https://placehold.co/150x100?text=New+Image+2',
+													alt: 'New photoset image 2',
+												}, ];
+											} else {
+												newPost.content = content;
+											}
+											posts.unshift(newPost);
+											// Now save after updating the posts array
+											localStorage.setItem('goobzPosts', JSON.stringify(posts));
+											renderPosts(searchInput.value.trim());
+											postForm.reset();
+											alert('Post submitted successfully!');
+							</script>
+					</aside>
+					</main>
+					<!-- Right sidebar -->
+					<aside class="col-span-3 flex flex-col space-y-4">
+						<!-- Player box -->
+						<section class="bg-white/30 rounded-md border border-white/50 p-3 text-[10px] font-mono text-light-gray select-text relative">
+							<div class="sidebar">
+								<img alt="Album cover art with vintage style illustration" class="w-10 h-10 rounded" height="40" src="https://storage.googleapis.com/a1aa/image/99612cfc-b813-4ab3-2017-a245cf5b5773.jpg" width="40" />
+								<div>
+									<div class="font-semibold text-[11px] text-light-gray"> A Puzzle </div>
+									<div class="text-[9px] text-gray-400"> ♡ 49k ♡ </div>
+								</div>
+							</div>
+							<div class="flex justify-center items-center space-x-4">
+								<button aria-label="Previous track" class="w-8 h-8 rounded-full border border-white/50 bg-white/70 text-gray-600 flex items-center justify-center" type="button">
+									<i class="fas fa-backward"></i>
+								</button>
+								<button aria-label="Play" class="w-10 h-10 rounded-full border border-white/50 bg-white text-gray-600 flex items-center justify-center" type="button">
+									<i class="fas fa-play"></i>
+								</button>
+								<button aria-label="Next track" class="w-8 h-8 rounded-full border border-white/50 bg-white/70 text-gray-600 flex items-center justify-center" type="button">
+									<i class="fas fa-forward"></i>
+								</button>
+							</div>
+						</section>
+						<!-- Pink silhouette image box -->
+						<section class="bg-white/30 rounded-md border border-white/50 p-2 flex justify-center items-center">
+							<img alt="Pink silhouette of a person holding a cat on a light pink background" class="object-contain max-w-full max-h-32" height="120" src="https://storage.googleapis.com/a1aa/image/5188d64b-554e-4a09-d162-e82f10c91768.jpg" width="200" />
+						</section>
+						<!-- Post generator form -->
+						<section class="bg-white/30 rounded-md border border-white/50 p-3 text-[10px] font-mono text-light-gray select-text">
+							<h2 class="mb-2 font-semibold text-center">Create New Post</h2>
+							<form action="/api/posts" method="POST" id="postForm" class="flex flex-col space-y-2" novalidate>
+								<label for="postType" class="sr-only">Post Type</label>
+								<select class="rounded border border-gray-400 bg-white/70 px-2 py-1 text-gray-700" id="postType" name="type" required>
+									<option value="like">Like Post</option>
+									<option value="answer">Answer Post</option>
+									<option value="photoset">Photoset Post</option>
+								</select>
+								<label for="postContent" class="sr-only">Post Content</label>
+								<textarea class="resize-none rounded border border-gray-400 p-2 text-gray-700" id="postContent" name="content" placeholder="Write your post content here..." rows="4" required></textarea>
+								<button class="bg-gradient-to-br from-[#d9c3f7] to-[#eac9e0] rounded-md border border-white/50 py-1 font-semibold text-gray-700 hover:text-gray-900" type="submit"> Submit Post </button>
+							</form>
+						</section>
+					</aside>
+				</div>
+				<!-- Bottom bar -->
+				<div class="mt-4 flex items-center justify-between border border-white/50 rounded-md bg-white/30 px-3 py-1 text-[10px] font-mono select-text text-light-gray">
+					<div class="flex space-x-2">
+						<button class="px-2 py-[2px] rounded bg-white/30" type="button"> POST DATE </button>
+						<button class="px-2 py-[2px] rounded bg-white/30" type="button"> MARKETING </button>
+						<button class="px-2 py-[2px] rounded bg-white/30" type="button"> GAMES </button>
+						<button class="px-2 py-[2px] rounded bg-white/30" type="button"> PHOTOSHOP </button>
+						<button class="px-2 py-[2px] rounded bg-white/30" type="button"> CSS </button>
+						<button class="px-2 py-[2px] rounded bg-white/30" type="button"> HTML </button>
+						<button class="px-2 py-[2px] rounded bg-white/30" type="button"> EXAMPLES </button>
+					</div>
+					<div class="flex items-center space-x-2">
+						<button aria-label="Previous page" class="w-6 h-6 rounded border border-white/50 text-white/50 flex items-center justify-center" type="button"> ◀ </button>
+						<button aria-label="Next page" class="w-6 h-6 rounded border border-white/50 text-white/50 flex items-center justify-center" type="button"> ▶ </button>
+						<button aria-label="Stop" class="w-6 h-6 rounded border border-white/50 text-white/50 flex items-center justify-center" type="button"> ● </button>
+					</div>
+					<div aria-live="polite" aria-atomic="true" class="text-light-gray text-[10px] font-mono select-text" id="clock"> 00:00:00 </div>
+					<script>
+						function updateClock() {
+							const clock = document.getElementById("clock");
+							if (!clock) return;
+							const now = new Date();
+							const hours = String(now.getHours()).padStart(2, "0");
+							const minutes = String(now.getMinutes()).padStart(2, "0");
+							const seconds = String(now.getSeconds()).padStart(2, "0");
+							clock.textContent = `${hours}:${minutes}:${seconds}`;
+						}
+						// Run once immediately
+						updateClock();
+						// Update every second
+						setInterval(updateClock, 1000);
+					</script>
+				</div>
+			</div>
+	</body>
 </html>
-
