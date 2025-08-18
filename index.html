@@ -123,39 +123,38 @@
 						<!-- Middle content area (blog posts) -->
 						<main class="col-span-6 main-content">
 							<!-- Posts will be dynamically rendered here -->
+							<div id="postsContainer" class="mt-4"></div>
 							<!-- Post Form -->
 							<script>
-								postForm.addEventListener('submit', (e) => {
-											e.preventDefault();
-											const type = postForm.type.value;
-											const content = postForm.content.value.trim();
-											if (!content) {
-												alert('Please enter post content.');
-												return;
-											}
-											// Add the new post first
-											const newPost = {
-												id: posts.length + 1,
-												type,
-											};
-											if (type === 'photoset') {
-												newPost.images = [{
-													src: 'https://placehold.co/150x100?text=New+Image+1',
-													alt: 'New photoset image 1',
-												}, {
-													src: 'https://placehold.co/150x100?text=New+Image+2',
-													alt: 'New photoset image 2',
-												}, ];
-											} else {
-												newPost.content = content;
-											}
-											posts.unshift(newPost);
-											// Now save after updating the posts array
-											localStorage.setItem('goobzPosts', JSON.stringify(posts));
-											renderPosts(searchInput.value.trim());
-											postForm.reset();
-											alert('Post submitted successfully!');
-							</script>
+						  	// Fetch posts from the serverless function and render them
+						  async function fetchPosts() {
+						    try {
+						      const res = await fetch('/.netlify/functions/posts'); // endpoint for your Netlify function
+						      const posts = await res.json();
+						      
+						      const postsContainer = document.getElementById('postsContainer');
+						      postsContainer.innerHTML = ''; // clear old posts
+						
+						      posts.forEach(post => {
+						        const postDiv = document.createElement('div');
+						        postDiv.className = 'bg-white/30 rounded-md p-2 my-2';
+						        postDiv.innerHTML = `
+						          <strong>Type:</strong> ${post.type} <br>
+						          <strong>Content:</strong> ${post.content || ''} <br>
+						          ${post.images?.length ? '<img src="' + post.images[0].src + '" width="100">' : ''}
+						        `;
+						        postsContainer.appendChild(postDiv);
+						      });
+						
+						    } catch (err) {
+						      console.error('Error fetching posts:', err);
+						    }
+						  }
+						
+						  // Run on page load
+						  fetchPosts();
+						</script>
+
 					</aside>
 					</main>
 					<!-- Right sidebar -->
