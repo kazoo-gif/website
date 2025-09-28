@@ -121,12 +121,12 @@
 							generateCalendar(today.getFullYear(), today.getMonth());
 						</script>
 					</aside>
-					<aside>
-						<!-- Middle content area (blog posts) -->
-						<main class="col-span-6 main-content">
-							<!-- Posts will be dynamically rendered here -->
-							<div id="postsContainer" class="mt-4"></div>
-							<!-- Post Form -->
+					
+					<!-- Middle content area (blog posts) -->
+					<main class="col-span-6 main-content">
+						<!-- Posts will be dynamically rendered here -->
+						<div id="postsContainer" class="mt-4"></div>
+						<!-- Post Form -->
 							<script>
 						  	// Fetch posts from the serverless function and render them
 						  async function fetchPosts() {
@@ -157,7 +157,6 @@
 						  fetchPosts();
 						</script>
 
-					</aside>
 					</main>
 					<!-- Right sidebar -->
 					<aside class="col-span-3 flex flex-col space-y-4">
