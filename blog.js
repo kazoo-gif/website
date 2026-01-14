@@ -1,7 +1,7 @@
 // ===== CONFIGURATION =====
 // 🔧 REPLACE THESE WITH YOUR SUPABASE VALUES!
-const SUPABASE_URL = 'YOUR_SUPABASE_URL_HERE';  // Like: https://xxxxx.supabase.co
-const SUPABASE_KEY = 'YOUR_ANON_KEY_HERE';      // Your anon/public key
+const SUPABASE_URL = 'https://bmpppymxjkgbfupxwpsw.supabase.co';  // Like: https://xxxxx.supabase.co
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtcHBweW14amtnYmZ1cHh3cHN3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzNDgxMzgsImV4cCI6MjA4MzkyNDEzOH0.kqf6VqUEvs8DnuG2S3FFxr7JxecngbXextYeV3rCENI';      // Your anon/public key
 
 // Initialize Supabase
 let supabaseClient;
