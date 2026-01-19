@@ -103,20 +103,30 @@ function removeImage() {
 }
 
 async function uploadImage(file) {
+    console.log('Uploading image:', file.name, file.type, file.size);
+    
     const fileExt = file.name.split('.').pop();
     const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
     const filePath = `${fileName}`;
+
+    console.log('Uploading to path:', filePath);
 
     const { data, error } = await supabaseClient.storage
         .from('blog-images')
         .upload(filePath, file);
 
-    if (error) throw error;
+    console.log('Upload result:', { data, error });
+
+    if (error) {
+        console.error('Upload error details:', error);
+        throw error;
+    }
 
     const { data: urlData } = supabaseClient.storage
         .from('blog-images')
         .getPublicUrl(filePath);
 
+    console.log('Public URL:', urlData.publicUrl);
     return urlData.publicUrl;
 }
 
