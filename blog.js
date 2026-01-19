@@ -103,30 +103,20 @@ function removeImage() {
 }
 
 async function uploadImage(file) {
-    console.log('Uploading image:', file.name, file.type, file.size);
-    
     const fileExt = file.name.split('.').pop();
     const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
     const filePath = `${fileName}`;
-
-    console.log('Uploading to path:', filePath);
 
     const { data, error } = await supabaseClient.storage
         .from('blog-images')
         .upload(filePath, file);
 
-    console.log('Upload result:', { data, error });
-
-    if (error) {
-        console.error('Upload error details:', error);
-        throw error;
-    }
+    if (error) throw error;
 
     const { data: urlData } = supabaseClient.storage
         .from('blog-images')
         .getPublicUrl(filePath);
 
-    console.log('Public URL:', urlData.publicUrl);
     return urlData.publicUrl;
 }
 
@@ -433,9 +423,9 @@ function showContact() {
                 Want to collaborate or just say hi? I'd love to hear from you!
             </p>
             <div class="space-y-3 text-white/80">
-                <div>📧 Email: your-email@example.com</div>
-                <div>🐦 Twitter: @yourhandle</div>
-                <div>💻 GitHub: yourusername</div>
+                <div>📧 Email: alyrball@gmail.com</div>
+                <div>🐦 Twitter: @arbyees_</div>
+                <div>💻 GitHub: kazoo-gif</div>
             </div>
         </div>
     `;
