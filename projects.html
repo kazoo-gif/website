@@ -7,6 +7,130 @@
     <title>Projects | Weirdcore Game Dev Blog</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Permanent+Marker&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <!--
+      Import map: lets the browser resolve "three" and "three/addons/..."
+      to real CDN URLs when model-viewer.js does `import * as THREE from "three"`.
+      Must appear BEFORE any <script type="module"> that imports from "three".
+    -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+        }
+    }
+    </script>
+
+    <!-- Styles for the 3D model viewer and .exe arcade sections. Move these into style.css whenever you like. -->
+    <style>
+        #models h2,
+        #exe-arcade h2 {
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        /* --- 3D Prints: light purple panel, white edge --- */
+        .model-block {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 2px solid #ffffff;
+            border-radius: 8px;
+            background: #ffffff;
+            box-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
+        }
+        .model-block h3 {
+            font-family: 'Permanent Marker', cursive;
+            color: #ffffff;
+            margin-top: 0;
+        }
+        .model-canvas {
+            width: 100%;
+            height: 400px;
+            border: 1px solid #ffffff;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+            background: #c09ef0;
+            cursor: grab;
+        }
+        .model-canvas:active {
+            cursor: grabbing;
+        }
+        .model-canvas canvas {
+            display: block;
+        }
+        .model-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #e3d5f7;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            text-align: center;
+            pointer-events: none;
+        }
+        .model-download {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.6rem 1.2rem;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            color: #ffffff;
+            background: #e3d5f7;
+            border: 2px solid #ffffff;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        .model-download:hover {
+            background: #3a2352;
+            color: #fff;
+        }
+
+        /* --- .exe Arcade: placeholder section, reuses the old neon look --- */
+        .exe-block {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 2px solid #ff2e88;
+            border-radius: 8px;
+            background: #e3d5f7;
+            box-shadow: 0 0 18px rgba(255, 46, 136, 0.35);
+            opacity: 0.85;
+        }
+        .exe-block h3 {
+            font-family: 'Permanent Marker', cursive;
+            color: #ffffff;
+            margin-top: 0;
+        }
+        .exe-placeholder {
+            width: 100%;
+            height: 200px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #c09ef0;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            text-align: center;
+        }
+        .exe-download {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.6rem 1.2rem;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            color: #ffffff;
+            background: #e3d5f7;
+            border: 2px solid #ffffff;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        .exe-download:hover {
+            background: #ff2e88;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -23,6 +147,37 @@
     </header>
 
     <main>
+        <section id="models">
+            <h2>3D Prints</h2>
+            <p>Some of the assets from these games exist as real, printable 3D models. Drag to rotate, scroll to zoom, and grab the .3mf file if you want to print your own.</p>
+
+            <!--
+              No live models yet — this is the pattern to add one:
+              1. Add a <div class="model-block"> with an <h3>, a
+                 <div id="YOUR-UNIQUE-ID" class="model-canvas"></div>,
+                 and an <a class="model-download" href="models/your-file.3mf" download>.
+              2. Add a matching { containerId: 'YOUR-UNIQUE-ID', modelPath: 'models/your-file.3mf' }
+                 entry to MODEL_CONFIGS in model-viewer.js.
+            -->
+        </section>
+
+        <section id="exe-arcade">
+            <h2>.exe Arcade</h2>
+            <p>Pixelated Dreams and Neon Escape currently only run as standalone .exe builds. The plan is to get them playable directly in the browser — most likely via an in-browser DOS/x86 emulator like js-dos or v86, or by porting the engine to WebAssembly. This section is a placeholder for that work.</p>
+
+            <div class="exe-block">
+                <h3>Pixelated Dreams</h3>
+                <div class="exe-placeholder">Browser player coming soon</div>
+                <a class="exe-download" href="games/pixelated-dreams.exe" download="pixelated-dreams.exe">Download .exe</a>
+            </div>
+
+            <div class="exe-block">
+                <h3>Neon Escape</h3>
+                <div class="exe-placeholder">Browser player coming soon</div>
+                <a class="exe-download" href="games/neon-escape.exe" download="neon-escape.exe">Download .exe</a>
+            </div>
+        </section>
+
         <section id="projects">
             <h2>My Projects</h2>
             <div class="project">
@@ -39,7 +194,13 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 Weirdcore Game Dev Blog</p>
+        <p>&copy; 2025 Goobz Blog</p>
     </footer>
+
+    <!-- type="module" is required because model-viewer.js uses import/export -->
+    <script type="module" src="model-viewer.js"></script>
+</body>
+</html>
+
 </body>
 </html>
