@@ -381,36 +381,6 @@ async function showPosts() {
     });
 }
 
-function showProjects() {
-    const main = document.getElementById('mainContent');
-    main.innerHTML = `
-        <div class="bg-white/40 rounded-lg p-6">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-2xl font-bold text-white">My Projects</h2>
-                <button id="btnBackFromProjects" class="text-white/70 hover:text-white text-sm">← Back</button>
-            </div>
-            <div class="space-y-4">
-                <div class="bg-white/30 rounded-lg p-4">
-                    <h3 class="font-semibold text-white text-lg mb-2">Pixelated Dreams</h3>
-                    <p class="text-white/80 text-sm mb-3">A surreal retro game where you jump through a world of floating objects, glitch effects, and neon pastels.</p>
-                    <a href="#" class="text-purple-300 hover:text-purple-200 text-sm font-semibold">
-                        Check it out →
-                    </a>
-                </div>
-                <div class="bg-white/30 rounded-lg p-4">
-                    <h3 class="font-semibold text-white text-lg mb-2">Neon Escape</h3>
-                    <p class="text-white/80 text-sm mb-3">A dreamlike game where the character navigates through a city filled with pixelated stars, clouds, and fuzzy neon lights.</p>
-                    <a href="#" class="text-purple-300 hover:text-purple-200 text-sm font-semibold">
-                        Explore it →
-                    </a>
-                </div>
-            </div>
-        </div>
-    `;
-
-    document.getElementById('btnBackFromProjects').addEventListener('click', showHome);
-}
-
 function showContact() {
     const main = document.getElementById('mainContent');
     main.innerHTML = `
@@ -493,25 +463,29 @@ function initializeBlog() {
     }
 
     // Navigation
-    document.getElementById('navHome').addEventListener('click', (e) => {
-        e.preventDefault();
-        showHome();
-    });
-    
-    document.getElementById('navPosts').addEventListener('click', (e) => {
-        e.preventDefault();
-        showPosts();
-    });
-    
-    document.getElementById('navProjects').addEventListener('click', (e) => {
-        e.preventDefault();
-        showProjects();
-    });
-    
-    document.getElementById('navContact').addEventListener('click', (e) => {
-        e.preventDefault();
-        showContact();
-    });
+    const navHome = document.getElementById('navHome');
+    if (navHome) {
+        navHome.addEventListener('click', (e) => {
+            e.preventDefault();
+            showHome();
+        });
+    }
+
+    const navPosts = document.getElementById('navPosts');
+    if (navPosts) {
+        navPosts.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPosts();
+        });
+    }
+
+    const navContact = document.getElementById('navContact');
+    if (navContact) {
+        navContact.addEventListener('click', (e) => {
+            e.preventDefault();
+            showContact();
+        });
+    }
 
     document.getElementById('btnViewPosts').addEventListener('click', showPosts);
     document.getElementById('btnCreatePost').addEventListener('click', scrollToNewPost);
