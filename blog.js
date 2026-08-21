@@ -22,13 +22,13 @@ function updateAuthUI() {
     const statusText = document.getElementById('statusText');
 
     if (currentUser) {
-        loginForm.classList.add('hidden');
-        postForm.classList.remove('hidden');
-        statusText.textContent = '✓ Logged in as Admin';
+        if (loginForm) loginForm.classList.add('hidden');
+        if (postForm) postForm.classList.remove('hidden');
+        if (statusText) statusText.textContent = '✓ Logged in as Admin';
     } else {
-        loginForm.classList.remove('hidden');
-        postForm.classList.add('hidden');
-        statusText.textContent = 'Visitor Mode';
+        if (loginForm) loginForm.classList.remove('hidden');
+        if (postForm) postForm.classList.add('hidden');
+        if (statusText) statusText.textContent = 'Visitor Mode';
     }
 }
 
@@ -218,13 +218,16 @@ async function deletePost(id) {
 
 // ===== RENDER FUNCTIONS =====
 function updateStats(postCount) {
-    document.getElementById('postCount').textContent = postCount;
-    document.getElementById('projectCount').textContent = '2';
+    const postCountEl = document.getElementById('postCount');
+    const projectCountEl = document.getElementById('projectCount');
+    if (postCountEl) postCountEl.textContent = postCount;
+    if (projectCountEl) projectCountEl.textContent = '2';
 }
 
 function renderRecentPosts(posts) {
     const container = document.getElementById('recentPosts');
-    
+    if (!container) return; // page has no recent-posts widget; nothing to do
+
     if (posts.length === 0) {
         container.innerHTML = `
             <div class="text-white/70 text-sm text-center py-8">
@@ -487,8 +490,15 @@ function initializeBlog() {
         });
     }
 
-    document.getElementById('btnViewPosts').addEventListener('click', showPosts);
-    document.getElementById('btnCreatePost').addEventListener('click', scrollToNewPost);
+    const btnViewPosts = document.getElementById('btnViewPosts');
+    if (btnViewPosts) {
+        btnViewPosts.addEventListener('click', showPosts);
+    }
+
+    const btnCreatePost = document.getElementById('btnCreatePost');
+    if (btnCreatePost) {
+        btnCreatePost.addEventListener('click', scrollToNewPost);
+    }
 
     // Start clock
     setInterval(updateClock, 1000);
