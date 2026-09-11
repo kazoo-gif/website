@@ -12,9 +12,12 @@ import { ThreeMFLoader } from 'three/addons/loaders/3MFLoader.js';
 // modelPath is the path to the .3mf file (same file the download link points to).
 // ---------------------------------------------------------------------------
 const MODEL_CONFIGS = [
-    containerId: 'my-first-model',
-    modelPath: 'models/Bunny Pencil Holder w shelf.stl',
+    { containerId: 'my-3mf-model', modelPath: 'models/file.3mf', format: '3mf' },
+    { containerId: 'my-stl-model', modelPath: 'models/file.stl', format: 'stl' },
 ];
+
+// In initViewer:
+
 
 function initViewer({ containerId, modelPath }) {
     const container = document.getElementById(containerId);
@@ -64,7 +67,12 @@ function initViewer({ containerId, modelPath }) {
     container.appendChild(loadingEl);
 
     // --- Load the .3mf file -----------------------------------------------------
-    const loader = new ThreeMFLoader();
+    let loader;
+    if (format === 'stl') {
+        loader = new STLLoader();
+    } else {
+        loader = new ThreeMFLoader();
+    }
     loader.load(
         modelPath,
         (object) => {
