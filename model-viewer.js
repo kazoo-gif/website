@@ -12,11 +12,8 @@ import { ThreeMFLoader } from 'three/addons/loaders/3MFLoader.js';
 // modelPath is the path to the .3mf file (same file the download link points to).
 // ---------------------------------------------------------------------------
 const MODEL_CONFIGS = [
-    // Empty for now — add one object per .model-block you create in projects.html, e.g.:
-    // {
-    //     containerId: 'some-model-viewer',
-    //     modelPath: 'models/some-model.3mf',
-    // },
+    containerId: 'my-first-model',
+    modelPath: 'models/my-first-model.3mf',
 ];
 
 function initViewer({ containerId, modelPath }) {
