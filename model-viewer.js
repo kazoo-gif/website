@@ -115,6 +115,8 @@ function initViewer({ containerId, modelPath }) {
     animate();
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => MODEL_CONFIGS.forEach(initViewer));
+} else {
     MODEL_CONFIGS.forEach(initViewer);
-});
+}
