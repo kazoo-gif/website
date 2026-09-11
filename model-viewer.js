@@ -13,7 +13,7 @@ import { ThreeMFLoader } from 'three/addons/loaders/3MFLoader.js';
 // ---------------------------------------------------------------------------
 const MODEL_CONFIGS = [
     containerId: 'my-first-model',
-    modelPath: 'models/my-first-model.3mf',
+    modelPath: 'models/Bunny Pencil Holder w shelf.stl',
 ];
 
 function initViewer({ containerId, modelPath }) {
