@@ -21,11 +21,14 @@
         }
     }
     </script>
-     <style>
+
+    <!-- Styles for the 3D model viewer and .exe arcade sections. Move these into style.css whenever you like. -->
+    <style>
         #models h2,
         #exe-arcade h2 {
             font-family: 'Press Start 2P', cursive;
         }
+
         /* --- 3D Prints: light purple panel, white edge --- */
         .model-block {
             margin: 2rem 0;
@@ -37,7 +40,7 @@
         }
         .model-block h3 {
             font-family: 'Permanent Marker', cursive;
-            color: #3a2352;        /* dark purple instead of white */
+            color: #ffffff;
             margin-top: 0;
         }
         .model-canvas {
@@ -96,7 +99,7 @@
         }
         .exe-block h3 {
             font-family: 'Permanent Marker', cursive;
-            color: #3a2352;        /* dark purple instead of white */
+            color: #ffffff;
             margin-top: 0;
         }
         .exe-placeholder {
@@ -148,14 +151,14 @@
             <h2>3D Prints</h2>
             <p>Some of the assets from these games exist as real, printable 3D models. Drag to rotate, scroll to zoom, and grab the .3mf file if you want to print your own.</p>
 
-            <!-- Place to put 3d models to download -->
-            <div class="model-block">
-                <h3>My First Model</h3>
-                <div id="my-first-model" class="model-canvas"></div>
-                <a class="model-download" href="models/bunny-pencil-holder-with-shelf.stl" download>Bunny Pencil Holder w shelf.stl</a>
-            </div>
-    <!-- Styles for the 3D model viewer and .exe arcade sections. Move these into style.css whenever you like. -->
-           
+            <!--
+              No live models yet — this is the pattern to add one:
+              1. Add a <div class="model-block"> with an <h3>, a
+                 <div id="YOUR-UNIQUE-ID" class="model-canvas"></div>,
+                 and an <a class="model-download" href="models/your-file.3mf" download>.
+              2. Add a matching { containerId: 'YOUR-UNIQUE-ID', modelPath: 'models/your-file.3mf' }
+                 entry to MODEL_CONFIGS in model-viewer.js.
+            -->
         </section>
 
         <section id="exe-arcade">
@@ -178,14 +181,14 @@
         <section id="projects">
             <h2>My Projects</h2>
             <div class="project">
-                <h3>Pixelated Dreams</h3>
-                <p>A surreal retro game where you jump through a world of floating objects, glitch effects, and neon pastels.</p>
-                <a href="#">Check it out!</a>
+                <h3>TBD 2048 Girly Pop Aesthetic</h3>
+                <p>Offline version of the popular puzzle game with a girly pop aesthetic.</p>
+                <a href="#">WIP</a>
             </div>
             <div class="project">
-                <h3>Neon Escape</h3>
-                <p>A dreamlike game where the character navigates through a city filled with pixelated stars, clouds, and fuzzy neon lights.</p>
-                <a href="#">Explore it!</a>
+                <h3>Rotating Utah Teapot</h3>
+                <p>Microwave oven from 3js with the classic Utah teapot model.</p>
+                <a href="#">WIP</a>
             </div>
         </section>
     </main>
@@ -196,8 +199,5 @@
 
     <!-- type="module" is required because model-viewer.js uses import/export -->
     <script type="module" src="model-viewer.js"></script>
-</body>
-</html>
-
 </body>
 </html>
