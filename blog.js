@@ -500,7 +500,7 @@ function initializeBlog() {
     if (navProjects) {
       navProjects.addEventListener('click', (e) => {
         e.preventDefault();
-        showProjects();
+        window.location.href = 'projects.html';
       });
     }
     const navContact = document.getElementById('navContact');
