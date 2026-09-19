@@ -383,7 +383,22 @@ async function showPosts() {
         card.addEventListener('click', () => viewPost(card.dataset.postId));
     });
 }
-
+function showProjects() {
+  const main = document.getElementById('mainContent');
+  main.innerHTML = `
+    <div class="bg-white/40 rounded-lg p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold text-white">Projects</h2>
+        <button id="btnBackFromProjects" class="text-white/70 hover:text-white text-sm">← Back</button>
+      </div>
+      <div class="space-y-3 text-white/80">
+        <div>🚧 Project 1 — coming soon</div>
+        <div>🚧 Project 2 — coming soon</div>
+      </div>
+    </div>
+  `;
+  document.getElementById('btnBackFromProjects').addEventListener('click', showHome);
+}
 function showContact() {
     const main = document.getElementById('mainContent');
     main.innerHTML = `
@@ -481,7 +496,13 @@ function initializeBlog() {
             showPosts();
         });
     }
-
+    const navProjects = document.getElementById('navProjects');
+    if (navProjects) {
+      navProjects.addEventListener('click', (e) => {
+        e.preventDefault();
+        showProjects();
+      });
+    }
     const navContact = document.getElementById('navContact');
     if (navContact) {
         navContact.addEventListener('click', (e) => {
