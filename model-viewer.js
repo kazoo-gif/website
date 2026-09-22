@@ -1,25 +1,24 @@
-// model-viewer.js
-// Loads .3mf files into interactive, rotatable Three.js viewers.
+/ model-viewer.js
+// Loads .3mf and .stl files into interactive, rotatable Three.js viewers.
 // Requires the import map in projects.html's <head> (defines "three" and "three/addons/").
 
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { ThreeMFLoader } from 'three/addons/loaders/3MFLoader.js';
+import { STLLoader } from 'three/addons/loaders/STLLoader.js';
 
 // ---------------------------------------------------------------------------
 // CONFIG — one entry per <div class="model-canvas" id="..."> in the HTML.
 // containerId must match the div's id exactly.
-// modelPath is the path to the .3mf file (same file the download link points to).
+// modelPath is the path to the model file (same file the download link points to).
+// format must be '3mf' or 'stl'.
 // ---------------------------------------------------------------------------
 const MODEL_CONFIGS = [
-    { containerId: 'my-3mf-model', modelPath: 'models/file.3mf', format: '3mf' },
-    { containerId: 'my-stl-model', modelPath: 'models/file.stl', format: 'stl' },
+    { containerId: 'bunny-pencil-holder', modelPath: 'models/Bunny_Pencil_Holder_w_shelf.stl', format: 'stl' },
+    { containerId: 'emergency-pendant', modelPath: 'models/Emergency_Pendant.3mf', format: '3mf' },
 ];
 
-// In initViewer:
-
-
-function initViewer({ containerId, modelPath }) {
+function initViewer({ containerId, modelPath, format }) {
     const container = document.getElementById(containerId);
     if (!container) {
         console.warn(`model-viewer.js: no element found with id "${containerId}"`);
@@ -41,8 +40,9 @@ function initViewer({ containerId, modelPath }) {
     container.appendChild(renderer.domElement);
 
     // --- Lights --------------------------------------------------------------
-    // .3mf files carry geometry (and sometimes color), but no lighting of their
-    // own, so the scene needs its own lights or the model will render black.
+    // .3mf/.stl files carry geometry (and sometimes color, for .3mf), but no
+    // lighting of their own, so the scene needs its own lights or the model
+    // will render black.
     scene.add(new THREE.AmbientLight(0xffffff, 0.7));
 
     const key = new THREE.DirectionalLight(0xffffff, 0.9);
@@ -66,18 +66,22 @@ function initViewer({ containerId, modelPath }) {
     loadingEl.textContent = 'Loading model...';
     container.appendChild(loadingEl);
 
-    // --- Load the .3mf file -----------------------------------------------------
-    let loader;
-    if (format === 'stl') {
-        loader = new STLLoader();
-    } else {
-        loader = new ThreeMFLoader();
-    }
+    // --- Pick the right loader for this file's format ---------------------------
+    const loader = format === 'stl' ? new STLLoader() : new ThreeMFLoader();
+
     loader.load(
         modelPath,
-        (object) => {
-            // 3MF files can be modeled at any scale/position, so normalize the
-            // model to sit centered in view regardless of its original units.
+        (result) => {
+            // STLLoader resolves with a BufferGeometry (just triangles, no
+            // color), while ThreeMFLoader resolves with a full Object3D/Group.
+            // Box3 and scene.add both need an Object3D, so wrap raw geometry
+            // in a Mesh first.
+            const object = result.isBufferGeometry
+                ? new THREE.Mesh(result, new THREE.MeshStandardMaterial({ color: 0xd9c3f7 }))
+                : result;
+
+            // 3MF/STL files can be modeled at any scale/position, so normalize
+            // the model to sit centered in view regardless of its original units.
             const box = new THREE.Box3().setFromObject(object);
             const size = box.getSize(new THREE.Vector3());
             const center = box.getCenter(new THREE.Vector3());
