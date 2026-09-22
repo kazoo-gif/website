@@ -21,116 +21,17 @@
         }
     }
     </script>
-
-    <!-- Styles for the 3D model viewer and .exe arcade sections. Move these into style.css whenever you like. -->
-    <style>
-        #models h2,
-        #exe-arcade h2 {
-            font-family: 'Press Start 2P', cursive;
-        }
-
-        /* --- 3D Prints: light purple panel, white edge --- */
-        .model-block {
-            margin: 2rem 0;
-            padding: 1.5rem;
-            border: 2px solid #ffffff;
-            border-radius: 8px;
-            background: #ffffff;
-            box-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
-        }
-        .model-block h3 {
-            font-family: 'Permanent Marker', cursive;
-            color: #ffffff;
-            margin-top: 0;
-        }
-        .model-canvas {
-            width: 100%;
-            height: 400px;
-            border: 1px solid #ffffff;
-            border-radius: 6px;
-            overflow: hidden;
-            position: relative;
-            background: #c09ef0;
-            cursor: grab;
-        }
-        .model-canvas:active {
-            cursor: grabbing;
-        }
-        .model-canvas canvas {
-            display: block;
-        }
-        .model-loading {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #e3d5f7;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.7rem;
-            text-align: center;
-            pointer-events: none;
-        }
-        .model-download {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: 0.6rem 1.2rem;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.7rem;
-            color: #ffffff;
-            background: #e3d5f7;
-            border: 2px solid #ffffff;
-            border-radius: 4px;
-            text-decoration: none;
-        }
-        .model-download:hover {
-            background: #3a2352;
-            color: #fff;
-        }
-
-        /* --- .exe Arcade: placeholder section, reuses the old neon look --- */
-        .exe-block {
-            margin: 2rem 0;
-            padding: 1.5rem;
-            border: 2px solid #ff2e88;
-            border-radius: 8px;
-            background: #e3d5f7;
-            box-shadow: 0 0 18px rgba(255, 46, 136, 0.35);
-            opacity: 0.85;
-        }
-        .exe-block h3 {
-            font-family: 'Permanent Marker', cursive;
-            color: #ffffff;
-            margin-top: 0;
-        }
-        .exe-placeholder {
-            width: 100%;
-            height: 200px;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #c09ef0;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.7rem;
-            text-align: center;
-        }
-        .exe-download {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: 0.6rem 1.2rem;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.7rem;
-            color: #ffffff;
-            background: #e3d5f7;
-            border: 2px solid #ffffff;
-            border-radius: 4px;
-            text-decoration: none;
-        }
-        .exe-download:hover {
-            background: #ff2e88;
-            color: #fff;
-        }
-    </style>
+    <div class="model-block">
+        <h3>Bunny Pencil Holder (w/ shelf)</h3>
+        <div id="bunny-pencil-holder" class="model-canvas"></div>
+        <a class="model-download" href="models/Bunny_Pencil_Holder_w_shelf.stl" download>Download .stl</a>
+    </div>
+    
+    <div class="model-block">
+        <h3>Emergency Pendant</h3>
+        <div id="emergency-pendant" class="model-canvas"></div>
+        <a class="model-download" href="models/Emergency_Pendant.3mf" download>Download .3mf</a>
+    </div>
 </head>
 <body>
     <header>
