@@ -230,7 +230,7 @@ function renderRecentPosts(posts) {
 
     if (posts.length === 0) {
         container.innerHTML = `
-            <div class="text-white/70 text-sm text-center py-8">
+            <div class="empty-state">
                 No posts yet. ${currentUser ? 'Create your first post! →' : 'Check back soon!'}
             </div>
         `;
@@ -246,20 +246,19 @@ function renderRecentPosts(posts) {
         });
         
         return `
-            <div class="post-card bg-white/40 rounded-lg overflow-hidden cursor-pointer" data-post-id="${post.id}">
+            <div class="post-card" data-post-id="${post.id}">
                 ${post.image_url ? `
-                    <img src="${post.image_url}" alt="${post.title}" 
-                         class="w-full h-48 object-cover">
+                    <img src="${post.image_url}" alt="${post.title}">
                 ` : ''}
-                <div class="p-4">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="font-semibold text-white">${post.title}</h3>
-                        <span class="text-xs text-white/60 bg-white/30 px-2 py-1 rounded">${post.type}</span>
+                <div class="post-card-body">
+                    <div class="post-card-header">
+                        <h3 class="post-card-title">${post.title}</h3>
+                        <span class="post-card-badge">${post.type}</span>
                     </div>
-                    <p class="text-white/80 text-sm mb-2 line-clamp-2">${post.content}</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-xs text-white/60">${date}</span>
-                        ${currentUser ? `<button class="btn-delete-post text-xs text-red-300 hover:text-red-200" data-post-id="${post.id}">Delete</button>` : ''}
+                    <p class="post-card-excerpt">${post.content}</p>
+                    <div class="post-card-footer">
+                        <span class="post-card-date">${date}</span>
+                        ${currentUser ? `<button class="btn-delete-post" data-post-id="${post.id}">Delete</button>` : ''}
                     </div>
                 </div>
             </div>
@@ -302,19 +301,18 @@ async function viewPost(id) {
 
         const main = document.getElementById('mainContent');
         main.innerHTML = `
-            <div class="bg-white/40 rounded-lg overflow-hidden">
+            <div class="post-detail">
                 ${data.image_url ? `
-                    <img src="${data.image_url}" alt="${data.title}" 
-                         class="w-full h-96 object-cover">
+                    <img src="${data.image_url}" alt="${data.title}">
                 ` : ''}
-                <div class="p-6">
-                    <button id="btnBackHome" class="text-white/70 hover:text-white text-sm mb-4">← Back to Home</button>
-                    <div class="flex justify-between items-start mb-4">
-                        <h1 class="text-3xl font-bold text-white">${data.title}</h1>
-                        <span class="text-sm text-white/60 bg-white/30 px-3 py-1 rounded">${data.type}</span>
+                <div class="post-detail-body">
+                    <button id="btnBackHome" class="back-link">← Back to Home</button>
+                    <div class="post-detail-header">
+                        <h1 class="post-detail-title">${data.title}</h1>
+                        <span class="post-card-badge">${data.type}</span>
                     </div>
-                    <div class="text-white/70 text-sm mb-4">${date}</div>
-                    <div class="text-white/90 text-base leading-relaxed whitespace-pre-wrap">${data.content}</div>
+                    <div class="post-detail-date">${date}</div>
+                    <div class="post-detail-content">${data.content}</div>
                 </div>
             </div>
         `;
@@ -335,21 +333,21 @@ async function showPosts() {
     
     if (posts.length === 0) {
         main.innerHTML = `
-            <div class="bg-white/40 rounded-lg p-6 text-center">
-                <h2 class="text-2xl font-bold text-white mb-3">All Posts</h2>
-                <p class="text-white/70">No posts yet. ${currentUser ? 'Create your first post!' : 'Check back soon!'}</p>
+            <div class="panel panel--solid panel--lg panel--center">
+                <h2 class="panel-title">All Posts</h2>
+                <p class="lead-text">No posts yet. ${currentUser ? 'Create your first post!' : 'Check back soon!'}</p>
             </div>
         `;
         return;
     }
     
     main.innerHTML = `
-        <div class="bg-white/40 rounded-lg p-6">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-2xl font-bold text-white">All Posts</h2>
-                <button id="btnBackFromPosts" class="text-white/70 hover:text-white text-sm">← Back</button>
+        <div class="panel panel--solid panel--lg">
+            <div class="panel-header">
+                <h2 class="panel-title">All Posts</h2>
+                <button id="btnBackFromPosts" class="back-link">← Back</button>
             </div>
-            <div class="space-y-3" id="allPostsContainer">
+            <div class="post-list" id="allPostsContainer">
                 ${posts.map(post => {
                     const date = new Date(post.created_at).toLocaleDateString('en-US', { 
                         year: 'numeric', 
@@ -357,18 +355,17 @@ async function showPosts() {
                         day: 'numeric' 
                     });
                     return `
-                        <div class="post-card bg-white/30 rounded-lg overflow-hidden cursor-pointer" data-post-id="${post.id}">
+                        <div class="post-card" data-post-id="${post.id}">
                             ${post.image_url ? `
-                                <img src="${post.image_url}" alt="${post.title}" 
-                                     class="w-full h-48 object-cover">
+                                <img src="${post.image_url}" alt="${post.title}">
                             ` : ''}
-                            <div class="p-4">
-                                <div class="flex justify-between items-start mb-2">
-                                    <h3 class="font-semibold text-white">${post.title}</h3>
-                                    <span class="text-xs text-white/60 bg-white/30 px-2 py-1 rounded">${post.type}</span>
+                            <div class="post-card-body">
+                                <div class="post-card-header">
+                                    <h3 class="post-card-title">${post.title}</h3>
+                                    <span class="post-card-badge">${post.type}</span>
                                 </div>
-                                <p class="text-white/80 text-sm mb-2">${post.content.substring(0, 150)}${post.content.length > 150 ? '...' : ''}</p>
-                                <span class="text-xs text-white/60">${date}</span>
+                                <p class="post-card-excerpt">${post.content.substring(0, 150)}${post.content.length > 150 ? '...' : ''}</p>
+                                <span class="post-card-date">${date}</span>
                             </div>
                         </div>
                     `;
@@ -386,12 +383,12 @@ async function showPosts() {
 function showProjects() {
   const main = document.getElementById('mainContent');
   main.innerHTML = `
-    <div class="bg-white/40 rounded-lg p-6">
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="text-2xl font-bold text-white">Projects</h2>
-        <button id="btnBackFromProjects" class="text-white/70 hover:text-white text-sm">← Back</button>
+    <div class="panel panel--solid panel--lg">
+      <div class="panel-header">
+        <h2 class="panel-title">Projects</h2>
+        <button id="btnBackFromProjects" class="back-link">← Back</button>
       </div>
-      <div class="space-y-3 text-white/80">
+      <div class="text-list">
         <div>🚧 Project 1 — coming soon</div>
         <div>🚧 Project 2 — coming soon</div>
       </div>
@@ -402,15 +399,15 @@ function showProjects() {
 function showContact() {
     const main = document.getElementById('mainContent');
     main.innerHTML = `
-        <div class="bg-white/40 rounded-lg p-6">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-2xl font-bold text-white">Get in Touch</h2>
-                <button id="btnBackFromContact" class="text-white/70 hover:text-white text-sm">← Back</button>
+        <div class="panel panel--solid panel--lg">
+            <div class="panel-header">
+                <h2 class="panel-title">Get in Touch</h2>
+                <button id="btnBackFromContact" class="back-link">← Back</button>
             </div>
-            <p class="text-white/90 mb-4">
+            <p class="lead-text">
                 Want to collaborate or just say hi? I'd love to hear from you!
             </p>
-            <div class="space-y-3 text-white/80">
+            <div class="text-list">
                 <div>📧 Email: alyrball@gmail.com</div>
                 <div>🐦 Twitter: @arbyees_</div>
                 <div>💻 GitHub: kazoo-gif</div>
@@ -434,7 +431,7 @@ function scrollToNewPost() {
 // ===== UTILITY FUNCTIONS =====
 function showNotification(message, isError = false) {
     const notif = document.createElement('div');
-    notif.className = `fixed top-4 right-4 ${isError ? 'bg-red-400' : 'bg-purple-400'} text-white px-4 py-3 rounded-lg shadow-lg z-50`;
+    notif.className = `toast${isError ? ' toast--error' : ''}`;
     notif.textContent = message;
     document.body.appendChild(notif);
     setTimeout(() => notif.remove(), 3000);
